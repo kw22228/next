@@ -4,6 +4,7 @@ export async function getServerSideProps() {
   const userRequest = await fetch('https://kw22228.github.io/Json/data.json');
   const userData = await userRequest.json();
 
+  console.log(userData);
   return {
     props: {
       user: userData,
