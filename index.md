@@ -48,3 +48,27 @@
 
 - 웹팩 커스터마이징
   - 프로젝트 최상단에 next.config.js에서 커스터마이징 할 수 있음.(craco와 비슷하게 하면될듯함)
+
+---
+
+#### 렌더링
+
+- getServerSideProps (서버 사이드 렌더링)
+
+  - getServerSideProps는 Nextjs의 예약 함수이다.
+  - 빌드 과정에서 Nextjs는 이 함수를 익스포트 하는 모든 페이지를 찾아서 서버가 페이지 요청을 처리할 때 getServerSideProps 함수를 호출하도록 만든다.
+    해당 함수내의 코드는 항상 서버에서만 실행된다.
+  - getServerSideProps 함수는 props라는 프로퍼티를 갖는 객체를 반환한다. 이 반환한 props를 컴포넌트로 전달하여 서버와 클라이언트 모두가 props에 접근하고 사용할 수 있다.
+
+- 클라이언트에서 실행하도록 강제하는 방법
+
+  - document나 window canvas같은 것들은 Node.js에서는 지원하지 않는다. 따라서 서버에서 저런것들을 사용하게되면 오류가 나게되어있음.
+    이럴때에는 서버쪽에서 실행하지않고 클라이언트에서 실행될 수 있도록 강제해야한다.
+    이럴때 useEffect를 사용하여 컴포넌트가 브라우저에 마운트된후에 실행 될 수 있도록 강제할 수 있다.
+
+  - 동적 컴포넌트 로딩을 사용하는 방법
+    - nextjs의 dynamic 함수를 사용하여 컴포넌트를 동적 임포트 시킨다.
+      옵션의 ssr을 이용하여 클라이언트에서만 임포트 할 수 있도록 한다.
+
+- process.browser
+  - process.browser라는 환경변수가 있다. true일 시 client에서 사용할 때이고, false일시 server에서 사용되고 있다는 것.
