@@ -79,3 +79,39 @@
   - SSG: 빌드시점에 getStaticProps로 만든 SSG컴포넌트를 html화 해서 미리 만들어놓는다.
 
   - ISR: SSR과 SSG를 합친기능. getStaticProps의 return값의 프로퍼티에 revalidate로 캐싱 주기를 주면 ISR로 동작하면서 주어진 캐싱주기마다 페이지를 재생성(정적 페이지를 다시 빌드)한다.
+
+#### 라우팅
+
+- 라우팅
+
+  - Next.js는 react와는 다르게 파일 기반 시스템으로 라우팅 목록을 빌드시점에 미리 매핑시켜놓는다.
+    그러므로 브라우저가 해당 url에 접근시 미리 매핑시켜놓은 url과 비교하여 적절한 컴포넌트를 렌더링한다.
+
+- 동적 라우팅
+  - [slug].jsx 요런식으로 파일을 만들면 나중에 props.params.slug 로 들어온다.
+  - getServerSideProps로 받으면 props로 그냥 받을 수 있지만
+    getStaticProps로 받으면 getStaticPaths를 이용하여 미리 동적라우팅될 목록을 매핑시켜야함.
+    그냥 클라이언트에서 받기위해선 next/router의 useRouter를 사용하여 받자. const { query } = useRouter()
+
+#### 정적 자원 제공
+
+- 이미지
+
+  - CLS 현상 보완. (이미지가 브라우저에 다운되기 직전에는 디폴트 이미지로 레이아웃의 변동이 없게만듬.)
+
+  - 자동 이미지 최적화
+
+    - WebP와 같은 최신 이미지 포맷으로 제공하고, 크기를 조절하고, 렌더링한다.
+      (외부 도메인의 리소스를 사용할 때는 next.config.js에서 images의 domain을 지정해줘야 한다. 해당 도메인의 이미지를 불러올 때마다 자동으로 이미지를 최적화함.)
+      images: { domains: ["images.unsplash.com"] }
+
+  - Image 컴포넌트 "layout" 속성
+
+    - fixed: 화면크기가 변해도 이미지 크기를 지정한 대로 유지한다.
+    - responsive: 화면 크기를 조절하면 그에 따라 이미지를 최적화해서 제공한다.
+    - intrinsic: 크기가 작은 화면에서는 크기를 조절하지만, 이미지보다 큰 화면에서는 고정된다.
+    - fill: 부모 요소의 가로 세로 크기에 따라 이미지를 늘린다. (fill을 쓰면 width/height 속성을 무시한다.)
+
+  - 외부 서비스를 통한 이미지 최적화
+    - next.config.js에서 loader속성을 지정하여 외부 서비스를 통한 이미지 최적화를 진행할 수 있다. (이걸로 이미지 서버를 연동해서 최적화를 지정하면 될듯? domain도 지정해주자!)
+    - 웹을 Vercel로 배포할시 loader는 자동으로 Vercel의 이미지 최적화를 진행하게됨.
