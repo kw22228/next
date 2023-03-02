@@ -71,4 +71,11 @@
       옵션의 ssr을 이용하여 클라이언트에서만 임포트 할 수 있도록 한다.
 
 - process.browser
+
   - process.browser라는 환경변수가 있다. true일 시 client에서 사용할 때이고, false일시 server에서 사용되고 있다는 것.
+
+- getStaticProps (정적 사이트 생성(SSG), 증분 정적 재생성(ISR))
+
+  - SSG: 빌드시점에 getStaticProps로 만든 SSG컴포넌트를 html화 해서 미리 만들어놓는다.
+
+  - ISR: SSR과 SSG를 합친기능. getStaticProps의 return값의 프로퍼티에 revalidate로 캐싱 주기를 주면 ISR로 동작하면서 주어진 캐싱주기마다 페이지를 재생성(정적 페이지를 다시 빌드)한다.
