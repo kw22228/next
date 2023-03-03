@@ -115,3 +115,10 @@
   - 외부 서비스를 통한 이미지 최적화
     - next.config.js에서 loader속성을 지정하여 외부 서비스를 통한 이미지 최적화를 진행할 수 있다. (이걸로 이미지 서버를 연동해서 최적화를 지정하면 될듯? domain도 지정해주자!)
     - 웹을 Vercel로 배포할시 loader는 자동으로 Vercel의 이미지 최적화를 진행하게됨.
+
+- 메타데이터
+
+  - import Head from 'next/head'
+    <Head></Head>를 사용하여 페이지의 head를 조작할 수 있다.
+
+  - title 이외의 다른 meta property는 덮여씌워지지 않고 계속 추가가됨.
