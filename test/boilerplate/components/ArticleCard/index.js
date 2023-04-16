@@ -6,8 +6,10 @@ export default function ArticleCard(article) {
   const articleURL = `/articles/${composeArticleSlug(article.id, article.title)}`;
 
   return (
-    <Link href={articleURL} passHref
-          className="w-full rounded-sm bg-white rounded-b-md shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
+    <Link
+      href={articleURL}
+      passHref
+      className="w-full rounded-sm bg-white rounded-b-md shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
     >
       <>
         <div className="relative w-full h-44">
